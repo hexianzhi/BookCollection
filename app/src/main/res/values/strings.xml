@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">私家藏书</string>
+    <string name="my_collection">我的藏书</string>
+    <string name="scan">扫码藏书</string>
+    <string name="collection_analysic">藏书统计</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="stringValue1">打到我群多群无</string>
+    <string name="stringValue2">TextView</string>
+    <string name="delete_item">删除</string>
+
+
+    <!---error start-->
+    <string name="neterror">网络错误</string>
+    <string name="unknown_error">未知错误</string>
+    <string name="jsonparseerror">JSON解析错误</string>
+    <string name="NOT_FOUND">无响应</string>
+    <string name="book_detail">书籍详情</string>
+    <string name="scan_Hint">讲条形码放入输入框内，即可自动扫描</string>
+</resources>
