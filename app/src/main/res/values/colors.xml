@@ -9,11 +9,23 @@
     <color name="basec_black">#000000</color>
     <color name="red_dark">#ffcc0000</color>
 
+     <color name="collected">#E9E9E9</color>
 
     <!--BookDetail-->
     <color name="gray">#FFE9E9E9</color>
     <color name="book_name">#FF4A4A4A</color>
     <color name="book_Simple_detail">#FF70788C</color>
     <color name="book_detail">#FF8891A7</color>
+
+    <!--listItem-->
+    <color name="itemDecoration">#E5E5E5</color>
+
+    <!--statistic-->
+    <color name="statiColor1">#FF009D82</color>
+    <color name="statiColor2">#FF21CAAD</color>
+    <color name="statiColor3">#FFAFE00D</color>
+    <color name="statiColor4">#FFFBF22E</color>
+    <color name="statiColor5">#FFFFC351</color>
+    <color name="statiColor6">#FFFF9C51</color>
 
 </resources>

@@ -1,12 +1,350 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.gedune.bookcollection.fragment.CollectionList">
 
-    <TextView
-        android:text="OOOOOOOOO"
-        android:layout_gravity="center"
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:id="@+id/static_toolbar"
+        android:background="@color/basic_green"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView" />
-</LinearLayout>
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+
+        <TextView
+            android:id="@+id/toolbar_tv"
+            android:text="藏书总量"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:textColor="#FFFFFFFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/book_count"
+            android:textSize="30sp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="17dp"
+            android:textColor="@color/basec_white" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/static_ll"
+        android:background="@color/basec_white"
+        android:layout_below="@id/static_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="350dp">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <View
+                android:background="@drawable/shape_static2"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/tag2View"
+                android:layout_below="@+id/tag1View"
+                android:layout_alignStart="@+id/tag1View"
+                android:layout_marginTop="20dp">
+            </View>
+
+
+
+            <View
+                android:background="@drawable/shape_static3"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/tag3View"
+                android:layout_below="@+id/tag2View"
+                android:layout_alignStart="@+id/tag2View"
+                android:layout_marginTop="20dp">
+            </View>
+
+            <View
+                android:background="@drawable/shape_static4"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/tag4"
+                android:layout_below="@+id/tag3View"
+                android:layout_alignStart="@+id/tag3View"
+                android:layout_marginTop="20dp">
+            </View>
+
+            <View
+                android:background="@drawable/shape_static5"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/tag5"
+                android:layout_below="@+id/tag4"
+                android:layout_alignStart="@+id/tag4"
+                android:layout_marginTop="20dp">
+            </View>
+
+            <View
+                android:background="@drawable/shape_static6"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/tag6"
+                android:layout_below="@+id/tag5"
+                android:layout_alignStart="@+id/tag5"
+                android:layout_marginTop="20dp">
+            </View>
+
+            <View
+                android:background="@drawable/shape_static"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="60dp"
+                android:id="@+id/tag1View"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true">
+            </View>
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tag1Name"
+                android:layout_alignTop="@+id/tag1View"
+                android:layout_toEndOf="@+id/tag1View"
+                android:layout_marginStart="10dp" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tag1Percent"
+                android:layout_marginEnd="10dp"
+                android:layout_alignBaseline="@+id/tag1Name"
+                android:layout_alignBottom="@+id/tag1Name"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tag2Name"
+                android:layout_alignTop="@+id/tag2View"
+                android:layout_alignStart="@+id/tag1Name" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tag3Name"
+                android:layout_alignTop="@+id/tag3View"
+                android:layout_alignStart="@+id/tag2Name" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView10"
+                android:layout_above="@+id/tag5"
+                android:layout_alignStart="@+id/tag3Name" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView13"
+                android:layout_alignTop="@+id/tag5"
+                android:layout_alignStart="@+id/textView10" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView14"
+                android:layout_alignTop="@+id/tag6"
+                android:layout_alignStart="@+id/textView13" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tag2Percent"
+                android:layout_alignBaseline="@+id/tag2Name"
+                android:layout_alignBottom="@+id/tag2Name"
+                android:layout_alignStart="@+id/tag1Percent" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView16"
+                android:layout_alignBottom="@+id/tag3Name"
+                android:layout_alignStart="@+id/tag2Percent"
+                android:layout_alignTop="@+id/tag3Name" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView18"
+                android:layout_alignBaseline="@+id/textView13"
+                android:layout_alignBottom="@+id/textView13"
+                android:layout_alignStart="@+id/textView17" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView19"
+                android:layout_alignBaseline="@+id/textView14"
+                android:layout_alignBottom="@+id/textView14"
+                android:layout_alignStart="@+id/textView18" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView17"
+                android:layout_centerVertical="true"
+                android:layout_alignStart="@+id/textView16" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/static_divide"
+        android:layout_below="@id/static_ll"
+        android:background="@drawable/shape_divide_line"
+        android:layout_width="match_parent"
+        android:layout_height="10dp">
+    </View>
+
+    <RelativeLayout
+        android:background="@color/basec_white"
+        android:layout_below="@id/static_divide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+             android:background="@drawable/group5"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/imageView2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/staticBookPriceCount"
+            android:text="$ 254"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="26dp" />
+
+
+        <ImageView
+            android:background="@drawable/group7"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:id="@+id/imageView3"
+            android:layout_below="@+id/static_divide2"
+            android:layout_alignStart="@+id/static_divide2"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:text="藏书总价"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:id="@+id/textView3"
+            android:layout_alignTop="@+id/imageView2"
+            android:layout_toEndOf="@+id/imageView2" />
+
+        <TextView
+            android:text="王小波"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/favarite_author"
+            android:layout_alignBottom="@+id/imageView3"
+            android:layout_alignStart="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/favarite_bookCount"
+            android:text="1本"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView3"
+            android:layout_alignEnd="@+id/staticBookPriceCount" />
+
+        <View
+            android:background="@drawable/shape_divide_line"
+            android:layout_width="360dp"
+            android:layout_height="1dp"
+            android:id="@+id/static_divide2"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/textView3"
+            android:layout_alignStart="@+id/imageView2">
+        </View>
+
+        <View
+            android:background="@drawable/shape_divide_line"
+            android:layout_width="360dp"
+            android:layout_height="1dp"
+            android:id="@+id/static_divide3"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/favarite_author"
+            android:layout_alignStart="@+id/imageView2">
+        </View>
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:background="@drawable/group8"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_below="@+id/static_divide3"
+            android:layout_alignStart="@+id/static_divide2"
+            android:layout_marginTop="10dp"/>
+
+
+        <TextView
+            android:text="机械出版社"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/favarite_publisher"
+            android:layout_alignBottom="@+id/imageView4"
+            android:layout_alignStart="@+id/favarite_author" />
+
+        <TextView
+            android:id="@+id/favarite_publisherCount"
+            android:text="2本"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView4"
+            android:layout_alignEnd="@+id/staticBookPriceCount" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

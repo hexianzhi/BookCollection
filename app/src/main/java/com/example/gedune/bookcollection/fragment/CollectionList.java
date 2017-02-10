@@ -2,14 +2,13 @@ package com.example.gedune.bookcollection.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,7 +21,6 @@ import com.example.gedune.bookcollection.AppProfile;
 import com.example.gedune.bookcollection.Bean.BookDetail;
 import com.example.gedune.bookcollection.R;
 import com.example.gedune.bookcollection.adpater.CollectionListAdapter;
-import com.example.gedune.bookcollection.adpater.CollectionTilingAdapter;
 import com.example.gedune.bookcollection.orm.OrmHelper;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
 import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
@@ -42,35 +40,31 @@ import butterknife.ButterKnife;
  * Created by gedune on 2017/2/1.
  */
 
-public class Collection_list extends Fragment {
+public class CollectionList extends Fragment {
 
     @BindView(R.id.toolbar_imgBtn)
     ImageButton mSwitchBtn;
 
-    @BindView(R.id.main_recyclerView)
+    @BindView(R.id.fragment_list_swReView)
     SwipeMenuRecyclerView mRecyclerView;
 
-
-    private RecyclerView gridReView;
-    private SwipeMenuRecyclerView listReView;
     private CollectionListAdapter listAdapter;
-    private CollectionTilingAdapter tilingAdapter;
     private LinearLayoutManager linearLayoutManager;
-    private GridLayoutManager gridLayoutManager;
     private Activity mActivity;
     private List<BookDetail> books;
     private OrmHelper helper;
     private ListViewDecoration listViewDecoration;
-    private Boolean isList;
+    private View rootView;
+    private int bookImageLeft;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_collection_list, null);
-        ButterKnife.bind(this,view);
+        rootView = inflater.inflate(R.layout.fragment_collection_list, null);
+        ButterKnife.bind(this,rootView);
         mActivity = getActivity();
-        return view;
-
+        return rootView;
     }
 
 
@@ -81,7 +75,8 @@ public class Collection_list extends Fragment {
         mSwitchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                changeLayout();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.main_fl,new CollectionTile()).commit();
             }
         });
 
@@ -91,55 +86,24 @@ public class Collection_list extends Fragment {
 
         if (books != null){
             listAdapter = new CollectionListAdapter(mActivity,books);
-            tilingAdapter = new CollectionTilingAdapter(mActivity,books);
         }else {
-
             listAdapter = new CollectionListAdapter(mActivity);
-            tilingAdapter = new CollectionTilingAdapter(mActivity);
         }
 
 
-
-        gridLayoutManager = new GridLayoutManager(mActivity, 3, GridLayoutManager.VERTICAL, false);
         linearLayoutManager = new LinearLayoutManager(mActivity);
-
-        listReView = new SwipeMenuRecyclerView(mActivity);
-        gridReView = new RecyclerView(mActivity);
-
         listViewDecoration = new ListViewDecoration();
-        listReView.setLayoutManager(linearLayoutManager);// 布局管理器。
-        isList = true;
-        listReView.setItemAnimator(new DefaultItemAnimator());// 设置Item默认动画，加也行，不加也行。
-        listReView.addItemDecoration( listViewDecoration);// 添加分割线。
-        listReView.setSwipeMenuCreator(swipeMenuCreator);
-        listReView.setSwipeMenuItemClickListener(listItemMenu);
-        listReView.setAdapter(listAdapter);
 
-        gridReView.setLayoutManager(gridLayoutManager);
-        gridReView.setAdapter(tilingAdapter);
+        mRecyclerView.setAdapter(listAdapter);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        mRecyclerView = listReView;
-    }
-
-    private void changeLayout() {
-
-        if (isList){
-             mRecyclerView = (SwipeMenuRecyclerView) gridReView;
-            mSwitchBtn.setBackground(AppProfile.getContext().getResources().getDrawable(R.drawable.listicon));
-            isList = false;
-
-        }else {
-            mRecyclerView= listReView;
-            mSwitchBtn.setBackground(AppProfile.getContext().getResources().getDrawable(R.drawable.tile_shape));
-            isList = true;
-        }
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        mRecyclerView.addItemDecoration(listViewDecoration);// 添加分割线。
+        mRecyclerView.setSwipeMenuCreator(swipeMenuCreator);
+        mRecyclerView.setSwipeMenuItemClickListener(listItemMenu);
 
     }
+
+
 
     /**
      * 当Item被移动之前。
@@ -214,6 +178,7 @@ public class Collection_list extends Fragment {
 
         @Override
         public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+
             final int left = parent.getPaddingLeft();
             final int right = parent.getWidth() - parent.getPaddingRight();
 

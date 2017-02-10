@@ -13,7 +13,7 @@ import com.example.gedune.bookcollection.R;
  * Created by gedune on 2017/2/1.
  */
 
-public class Collection_statistics extends Fragment {
+public class CollectionStatistics extends Fragment {
 
     @Nullable
     @Override

@@ -5,12 +5,15 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 
+import java.io.Serializable;
+
 /**
  * Created by gedune on 2017/2/5.
  */
 
+@SuppressWarnings("serial")
 @Entity
-public class BookDetail {
+public class BookDetail implements Serializable {
 
     @Generated(hash = 467010836)
     public BookDetail() {

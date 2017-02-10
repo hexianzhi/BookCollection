@@ -15,8 +15,8 @@ import android.widget.Toast;
 import com.example.gedune.bookcollection.Bean.BookBean;
 import com.example.gedune.bookcollection.Bean.BookDetail;
 import com.example.gedune.bookcollection.R;
-import com.example.gedune.bookcollection.fragment.Collection_list;
-import com.example.gedune.bookcollection.fragment.Collection_statistics;
+import com.example.gedune.bookcollection.fragment.CollectionList;
+import com.example.gedune.bookcollection.fragment.CollectionStatistics;
 import com.example.gedune.bookcollection.module.BookDetailTask;
 import com.example.gedune.bookcollection.net.BaseRequest;
 import com.example.gedune.bookcollection.net.HttpCallback;
@@ -61,6 +61,7 @@ public class MainActivity extends BaseActivity   {
 
     private void initData() {
         helper = OrmHelper.getInstance(this);
+
     }
 
 
@@ -72,7 +73,7 @@ public class MainActivity extends BaseActivity   {
                 switch (i) {
                     case R.id.rb_collecion:
                         if (mCollectionListFg == null) {
-                            mCollectionListFg = new Collection_list();
+                            mCollectionListFg = new CollectionList();
                         }
                         transaction.replace(R.id.main_fl, mCollectionListFg);
                         break;
@@ -107,7 +108,7 @@ public class MainActivity extends BaseActivity   {
 
 
                         if (mCollectionStaticFg == null) {
-                            mCollectionStaticFg = new Collection_statistics();
+                            mCollectionStaticFg = new CollectionStatistics();
                         }
                         transaction.replace(R.id.main_fl, mCollectionStaticFg);
 
@@ -117,8 +118,8 @@ public class MainActivity extends BaseActivity   {
             }
         });
 
-        mCollectionListFg = new Collection_list();
-        mCollectionStaticFg = new Collection_statistics();
+        mCollectionListFg = new CollectionList();
+        mCollectionStaticFg = new CollectionStatistics();
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(R.id.main_fl,mCollectionListFg).commit();
@@ -147,10 +148,11 @@ public class MainActivity extends BaseActivity   {
                         @Override
                         public void onResponse(BaseRequest request, Object data) {
                             BookDetail detail = BookDetailGenarator.BookBeanToDetail((BookBean)data);
-//                            Log.e("fuck",detail.toString());
+                            Intent i = new Intent(MainActivity.this, BookDetailActivity.class);
+                            i.putExtra(BookDetailActivity.sBOOK,detail);
+                            startActivity(i);
 
                             helper.insertBook(detail);
-
                         }
 
                         @Override

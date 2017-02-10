@@ -29,7 +29,7 @@ public class CollectionListAdapter extends SwipeMenuAdapter<CollectionViewHolder
 
     @Override
     public View onCreateContentView(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.collection_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_collection_list_itemt, parent, false);
         return view;
     }
 

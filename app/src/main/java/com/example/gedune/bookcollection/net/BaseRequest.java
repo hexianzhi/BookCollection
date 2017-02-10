@@ -193,14 +193,11 @@ public abstract class BaseRequest<T> {
             mCall.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.e("fuck","enqueue onFailure.  :");
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    Log.e("fuck","enqueue onResponse.  :");
                     BookBean bookBean = (BookBean) parseResponse(response.body());
-                    Log.e("fuck","bookBean :"+ bookBean.toString());
                     callback.onResponse(BaseRequest.this,bookBean);
                 }
             });

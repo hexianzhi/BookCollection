@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">私家藏书</string>
-    <string name="my_collection">我的藏书</string>
-    <string name="scan">扫码藏书</string>
-    <string name="collection_analysic">藏书统计</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="stringValue1">打到我群多群无</string>
-    <string name="stringValue2">TextView</string>
-    <string name="delete_item">删除</string>
+	<string name="app_name">私家藏书</string>
+	<string name="my_collection">我的藏书</string>
+	<string name="scan">扫码藏书</string>
+	<string name="collection_analysic">藏书统计</string>
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="stringValue1">打到我群多群无</string>
+	<string name="stringValue2">TextView</string>
+	<string name="delete_item">删除</string>
+	<string name="neterror">网络错误</string>
+	<string name="unknown_error">未知错误</string>
+	<string name="jsonparseerror">JSON解析错误</string>
+	<string name="NOT_FOUND">无响应</string>
+	<string name="book_detail">书籍详情</string>
+	<string name="scan_Hint">讲条形码放入输入框内，即可自动扫描</string>
+	<string name="detail_introduction_test">我们的存在的确让太阳系与众不同。夏夜，你躺在沙滩上，仰望夜空。一颗小小的流星安静滑过，还来不及许愿，不可思议的事情发生了：你一下子穿越五十亿年，走进时光的旅行</string>
 
+	<string name="bookname">%s</string>
+	<string name="author">作者:%s</string>
+	<string name="translator">译者:%s</string>
+	<string name="classification">分类:%s</string>
+	<string name="price">定价:%s</string>
+	<string name="publisher">出版社:%s</string>
+	<string name="pubdate">出版年:%s</string>
+	<string name="pages">页数:%s</string>
+	<string name="isbn">ISBN:%s</string>
 
-    <!---error start-->
-    <string name="neterror">网络错误</string>
-    <string name="unknown_error">未知错误</string>
-    <string name="jsonparseerror">JSON解析错误</string>
-    <string name="NOT_FOUND">无响应</string>
-    <string name="book_detail">书籍详情</string>
-    <string name="scan_Hint">讲条形码放入输入框内，即可自动扫描</string>
+	<string name="stringValue3">已收藏</string>
+	<string name="stringValue4">内容简介</string>
 </resources>
