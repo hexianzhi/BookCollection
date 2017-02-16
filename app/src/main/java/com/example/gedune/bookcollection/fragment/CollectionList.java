@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +81,6 @@ public class CollectionList extends Fragment {
 
         helper = OrmHelper.getInstance(mActivity);
         books = helper.queryBooks();
-        Log.e("fuck",books.toString());
 
         if (books != null){
             listAdapter = new CollectionListAdapter(mActivity,books);
@@ -113,6 +111,7 @@ public class CollectionList extends Fragment {
         public int onDragFlags(RecyclerView recyclerView, RecyclerView.ViewHolder targetViewHolder) {
             return OnItemMovementListener.RIGHT;// 返回无效的方向。
         }
+
         @Override
         public int onSwipeFlags(RecyclerView recyclerView, RecyclerView.ViewHolder targetViewHolder) {
 
@@ -162,8 +161,13 @@ public class CollectionList extends Fragment {
             closeable.smoothCloseMenu();// 关闭被点击的菜单。
             // TODO 如果是删除：推荐调用Adapter.notifyItemRemoved(position)，不推荐Adapter.notifyDataSetChanged();
             if (menuPosition == 0) {// 删除按钮被点击。
+
+                listAdapter.removeItem(adapterPosition);
                 listAdapter.notifyItemRemoved(adapterPosition);
             }
+
+
+
         }
     };
 
@@ -178,7 +182,6 @@ public class CollectionList extends Fragment {
 
         @Override
         public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
-
             final int left = parent.getPaddingLeft();
             final int right = parent.getWidth() - parent.getPaddingRight();
 

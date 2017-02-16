@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="350dp"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/dialog_tip"
+        android:layout_width="match_parent"
+        android:text="删除该书籍？"
+        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        />
+
+    <LinearLayout
+        android:id="@+id/pre_store_edit_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialog_cancle"
+            android:background="@color/basec_white"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="取消"
+           />
+
+
+        <Button
+            android:id="@+id/dialog_confirm"
+            android:background="@color/basec_white"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="确定"
+            />
+    </LinearLayout>
+</LinearLayout>

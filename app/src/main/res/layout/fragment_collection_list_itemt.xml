@@ -10,16 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/book_img"
-            android:layout_marginStart="16dp"
-            android:text="@string/stringValue1"
-            android:layout_centerVertical="true"
-            android:scaleType="fitXY"
-            android:layout_alignParentStart="true"
-            android:layout_width="60dp"
-            android:layout_height="120dp" />
-
         <TextView
             android:id="@+id/book_name"
             android:layout_width="wrap_content"
@@ -42,6 +32,15 @@
             android:layout_below="@+id/book_name"
             android:layout_alignStart="@+id/book_name"
             android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/book_img"
+            android:text="@string/stringValue1"
+            android:scaleType="fitXY"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
 
 
     </RelativeLayout>

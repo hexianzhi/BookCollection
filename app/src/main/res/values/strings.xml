@@ -26,6 +26,6 @@
 	<string name="pages">页数:%s</string>
 	<string name="isbn">ISBN:%s</string>
 
-	<string name="stringValue3">已收藏</string>
+	<string name="stringValue3">收藏</string>
 	<string name="stringValue4">内容简介</string>
 </resources>

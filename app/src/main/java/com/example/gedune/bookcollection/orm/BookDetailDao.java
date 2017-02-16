@@ -15,7 +15,7 @@ import com.example.gedune.bookcollection.Bean.BookDetail;
 /** 
  * DAO for table "BOOK_DETAIL".
 */
-public class BookDetailDao extends AbstractDao<BookDetail, Void> {
+public class BookDetailDao extends AbstractDao<BookDetail, String> {
 
     public static final String TABLENAME = "BOOK_DETAIL";
 
@@ -30,7 +30,7 @@ public class BookDetailDao extends AbstractDao<BookDetail, Void> {
         public final static Property Image = new Property(3, String.class, "image", false, "IMAGE");
         public final static Property Pages = new Property(4, String.class, "pages", false, "PAGES");
         public final static Property Publisher = new Property(5, String.class, "publisher", false, "PUBLISHER");
-        public final static Property Isbn13 = new Property(6, String.class, "isbn13", false, "ISBN13");
+        public final static Property Isbn13 = new Property(6, String.class, "isbn13", true, "ISBN13");
         public final static Property Summary = new Property(7, String.class, "summary", false, "SUMMARY");
         public final static Property Price = new Property(8, String.class, "price", false, "PRICE");
         public final static Property Tag = new Property(9, String.class, "tag", false, "TAG");
@@ -57,7 +57,7 @@ public class BookDetailDao extends AbstractDao<BookDetail, Void> {
                 "\"IMAGE\" TEXT," + // 3: image
                 "\"PAGES\" TEXT," + // 4: pages
                 "\"PUBLISHER\" TEXT," + // 5: publisher
-                "\"ISBN13\" TEXT NOT NULL ," + // 6: isbn13
+                "\"ISBN13\" TEXT PRIMARY KEY NOT NULL ," + // 6: isbn13
                 "\"SUMMARY\" TEXT," + // 7: summary
                 "\"PRICE\" TEXT," + // 8: price
                 "\"TAG\" TEXT," + // 9: tag
@@ -104,7 +104,11 @@ public class BookDetailDao extends AbstractDao<BookDetail, Void> {
         if (publisher != null) {
             stmt.bindString(6, publisher);
         }
-        stmt.bindString(7, entity.getIsbn13());
+ 
+        String isbn13 = entity.getIsbn13();
+        if (isbn13 != null) {
+            stmt.bindString(7, isbn13);
+        }
  
         String summary = entity.getSummary();
         if (summary != null) {
@@ -165,7 +169,11 @@ public class BookDetailDao extends AbstractDao<BookDetail, Void> {
         if (publisher != null) {
             stmt.bindString(6, publisher);
         }
-        stmt.bindString(7, entity.getIsbn13());
+ 
+        String isbn13 = entity.getIsbn13();
+        if (isbn13 != null) {
+            stmt.bindString(7, isbn13);
+        }
  
         String summary = entity.getSummary();
         if (summary != null) {
@@ -194,8 +202,8 @@ public class BookDetailDao extends AbstractDao<BookDetail, Void> {
     }
 
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public String readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6);
     }    
 
     @Override
@@ -207,7 +215,7 @@ public class BookDetailDao extends AbstractDao<BookDetail, Void> {
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // image
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // pages
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // publisher
-            cursor.getString(offset + 6), // isbn13
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // isbn13
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // summary
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // price
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // tag
@@ -225,7 +233,7 @@ public class BookDetailDao extends AbstractDao<BookDetail, Void> {
         entity.setImage(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setPages(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setPublisher(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setIsbn13(cursor.getString(offset + 6));
+        entity.setIsbn13(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setSummary(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setPrice(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setTag(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
@@ -234,20 +242,22 @@ public class BookDetailDao extends AbstractDao<BookDetail, Void> {
      }
     
     @Override
-    protected final Void updateKeyAfterInsert(BookDetail entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected final String updateKeyAfterInsert(BookDetail entity, long rowId) {
+        return entity.getIsbn13();
     }
     
     @Override
-    public Void getKey(BookDetail entity) {
-        return null;
+    public String getKey(BookDetail entity) {
+        if(entity != null) {
+            return entity.getIsbn13();
+        } else {
+            return null;
+        }
     }
 
     @Override
     public boolean hasKey(BookDetail entity) {
-        // TODO
-        return false;
+        return entity.getIsbn13() != null;
     }
 
     @Override

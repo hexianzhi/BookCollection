@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/basec_white"
+    android:layout_width="350dp"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/dialog_tip"
+        android:layout_width="match_parent"
+        android:text="没有检索到你需要的书籍，请重新检索"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+    />
+
+    <View
+        android:layout_below="@id/dialog_tip"
+        android:background="@drawable/divider_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/scan_view_divider">
+
+    </View>
+
+    <Button
+        android:text="确定"
+        android:background="@color/basec_white"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scan_dialog_comfirm"
+        android:layout_below="@+id/scan_view_divider"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

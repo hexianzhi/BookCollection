@@ -2,6 +2,7 @@ package com.example.gedune.bookcollection.Bean;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 
@@ -15,16 +16,17 @@ import java.io.Serializable;
 @Entity
 public class BookDetail implements Serializable {
 
+    @Id
+    private String isbn13;
+
     @Generated(hash = 467010836)
     public BookDetail() {
     }
 
-
-    @Generated(hash = 826770812)
-    public BookDetail(String title, String subtitle, String pubdate, String image, String pages,
-            String publisher, @NotNull String isbn13, String summary, String price, String tag,
-            String authors, String translators) {
-
+    @Keep
+    public BookDetail(String title, String subtitle, String pubdate, String image,
+            String pages, String publisher, @NotNull String isbn13, String summary, String price,
+            String tag, String authors, String translators) {
         this.title = title;
         this.subtitle = subtitle;
         this.pubdate = pubdate;
@@ -45,9 +47,6 @@ public class BookDetail implements Serializable {
     private String image;
     private String pages;
     private String publisher;
-
-    @NotNull
-    private String isbn13;
 
     private String summary;
     private String price;
@@ -172,4 +171,9 @@ public class BookDetail implements Serializable {
                 ", translators='" + translators + '\'' +
                 '}';
     }
+
+
+
+
+
 }

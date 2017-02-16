@@ -34,4 +34,6 @@ public class ResourceHelper {
         return AppProfile.getContext().getResources().getDimension(dimenId);
     }
 
+
+
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.example.gedune.bookcollection.Bean.BookDetail;
 import com.example.gedune.bookcollection.R;
+import com.example.gedune.bookcollection.orm.OrmHelper;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 
 import java.util.List;
@@ -18,13 +19,16 @@ import java.util.List;
 public class CollectionListAdapter extends SwipeMenuAdapter<CollectionViewHolder> {
     private  Context mContext;
     private List<BookDetail> books;
+    private OrmHelper helper;
 
     public CollectionListAdapter(Context context ) {
         this.mContext = context;
+        helper = OrmHelper.getInstance(context);
     }
     public CollectionListAdapter(Context context,List<BookDetail> bookDetails) {
         this.mContext = context;
         books = bookDetails;
+        helper = OrmHelper.getInstance(context);
     }
 
     @Override
@@ -59,6 +63,12 @@ public class CollectionListAdapter extends SwipeMenuAdapter<CollectionViewHolder
         int insertPosition = this.books.size();
         this.books.addAll(items);
         notifyItemRangeInserted(insertPosition, items.size());
+    }
+
+    public void removeItem(int position){
+        helper.deleteBook(books.get(position));
+        books.remove(position);
+        notifyItemRemoved(position);
     }
 
     public BookDetail getItem(int position) {

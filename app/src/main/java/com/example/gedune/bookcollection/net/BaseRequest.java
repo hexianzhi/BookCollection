@@ -193,12 +193,19 @@ public abstract class BaseRequest<T> {
             mCall.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
+
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    BookBean bookBean = (BookBean) parseResponse(response.body());
-                    callback.onResponse(BaseRequest.this,bookBean);
+                    Log.e("fuck",response.message());
+                    if (response.code() == 200){
+                        BookBean bookBean = (BookBean) parseResponse(response.body());
+                        callback.onResponse(BaseRequest.this,bookBean);
+                    }else {
+                        callback.onResponse(BaseRequest.this,"fuck");
+                    }
+
                 }
             });
         } else {
