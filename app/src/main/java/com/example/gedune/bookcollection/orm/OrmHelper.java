@@ -59,12 +59,9 @@ public class OrmHelper {
 
     }
     public List<BookDetail> queryBook(String isbn13){
-
         BookDetailDao bookDao =  daoSession.getBookDetailDao();
         List<BookDetail> bookDetails = bookDao.queryBuilder().where(BookDetailDao.Properties.Isbn13.eq(isbn13)).list();
-
         return bookDetails;
-
     }
 
     public static List<Map.Entry<String, Integer>> getBookTag(){
@@ -73,8 +70,10 @@ public class OrmHelper {
         List<BookDetail> bookDetails = OrmHelper.getInstance(AppProfile.getContext()).queryBooks();
         for (int i = 0 ; i < bookDetails.size(); i++ ){
             BookDetail bookDetail = bookDetails.get(i);
-            String tag = bookDetail.getTag();
-            tags.add(tag);
+            if (!bookDetail.getTag().isEmpty()){
+                String tag = bookDetail.getTag();
+                tags.add(tag);
+            }
         }
 
         //统计每个 tag 数量
@@ -82,7 +81,6 @@ public class OrmHelper {
 
         for (String tag : tags){
             int tagCount = 0;
-
              if (tagMap.get(tag) == null){
                  tagCount ++;
                  tagMap.put(tag,tagCount);
@@ -121,11 +119,15 @@ public class OrmHelper {
         for (int i = 0 ; i < bookDetails.size(); i++ ){
             BookDetail bookDetail = bookDetails.get(i);
             String s= bookDetail.getPrice();
-            String[] part = s.split("元");
-            priceCount += Float.valueOf(part[0]);
-
+            String[] part = new String[0];
+            if (s.contains("元")){
+                 part = s.split("元");
+                priceCount += Float.valueOf(part[0]);
+            } else if (s.contains("CNY")) {
+                 part = s.split("CNY");
+                priceCount += Float.valueOf(part[1]);
+            }
         }
-
         return (int )priceCount;
     }
 

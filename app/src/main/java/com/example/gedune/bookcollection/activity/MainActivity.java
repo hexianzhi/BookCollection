@@ -12,10 +12,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.gedune.bookcollection.AppProfile;
 import com.example.gedune.bookcollection.R;
 import com.example.gedune.bookcollection.fragment.CollectionList;
 import com.example.gedune.bookcollection.fragment.CollectionStatistics;
 import com.example.gedune.bookcollection.orm.OrmHelper;
+import com.example.gedune.bookcollection.utils.image.NetWorkUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,10 +52,16 @@ public class MainActivity extends BaseActivity   {
         initView();
         initData();
 
+
     }
 
     private void initData() {
         helper = OrmHelper.getInstance(this);
+
+        if (!NetWorkUtils.isNetworkConnected())
+        {
+            Toast.makeText(AppProfile.getContext(),"无网络连接，请检查您是否连接上了网络!",Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -120,60 +128,6 @@ public class MainActivity extends BaseActivity   {
         super.onStart();
         mRadioCollection.setChecked(true);
     }
-
-
-
-    //    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        /**
-//         * 处理二维码扫描结果
-//         */
-//        if (requestCode == REQUEST_CODE) {
-//            //处理扫描结果（在界面上显示）
-//            if (null != data) {
-//                Bundle bundle = data.getExtras();
-//                if (bundle == null) {
-//                    return;
-//                }
-//
-//                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-//                    final String result = bundle.getString(CodeUtils.RESULT_STRING);
-//                    Toast.makeText(this, "解析结果:" + result, Toast.LENGTH_LONG).show();
-//
-//                    final BookDetailTask task = new BookDetailTask(result);
-//                    task.enqueue(new HttpCallback() {
-//                        @Override
-//                        public void onResponse(BaseRequest request, Object data) {
-//                            if (data.toString().equals("fuck")){
-//
-//                            }else {
-//
-//                                BookDetail detail = BookDetailGenarator.BookBeanToDetail((BookBean)data);
-//                                Intent i = new Intent(MainActivity.this, BookDetailActivity.class);
-//                                i.putExtra(BookDetailActivity.sBOOK,detail);
-//                                startActivity(i);
-//                                helper.insertBook(detail);
-//
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onFailure(BaseRequest request, Exception e, int code, String message) {
-//
-//                        }
-//                    },true);
-//
-//                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-//                    Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        } else if (requestCode == REQUEST_CAMERA_PERM) {
-//            Toast.makeText(this, "从设置页面返回...", Toast.LENGTH_SHORT)
-//                    .show();
-//        }
-//        mRadioCollection.setChecked(true);
-//    }
 
 
     private void setTabState() {

@@ -1,5 +1,6 @@
 package com.example.gedune.bookcollection.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.example.gedune.bookcollection.R;
 import com.example.gedune.bookcollection.orm.OrmHelper;
 import com.example.gedune.bookcollection.utils.ResourceHelper;
 import com.example.gedune.bookcollection.utils.image.ImageUtils;
+import com.example.gedune.bookcollection.widget.SimpleDialog;
 
 import java.util.List;
 
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
 public class BookDetailActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static final String sBOOK = "BOOK";
-    public static final String sIsbn = "ISBN13";
+
 
     @BindView(R.id.bookname)
     TextView booName;
@@ -76,7 +78,6 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
     private BookDetail bookDetail;
     private Boolean isBookCollected = false;
     private OrmHelper helper;
-
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -135,7 +136,6 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
                 //TODO
                 startActivity(new Intent(BookDetailActivity.this,MainActivity.class));
                 finish();
-
                 break;
 
             case R.id.detailAtyCollectiBtn:
@@ -159,13 +159,31 @@ public class BookDetailActivity extends AppCompatActivity implements View.OnClic
                     isBookCollected = true;
 
                 }
-
                 break;
-
-
         }
-
     }
 
-
+    @Override
+    public void onBackPressed() {
+        if (!isBookCollected){
+            SimpleDialog.Builder builder= new SimpleDialog.Builder(BookDetailActivity.this);
+            builder.setCancelButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.setconfirmButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            builder.setMessage("当前有未保存的书籍，确定不收藏直接退出吗？");
+            builder.create().show();
+        }else {
+            super.onBackPressed();
+        }
+    }
 }

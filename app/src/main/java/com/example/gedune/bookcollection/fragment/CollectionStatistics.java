@@ -138,12 +138,10 @@ public class CollectionStatistics extends Fragment {
         List<String> finalTag = new ArrayList<String>();
 
         Iterator<Map.Entry<String, Integer>> entryIterator = tags.iterator();
-
         Map.Entry<String, Integer> tempEntry;
 
         for(int index = 0; entryIterator.hasNext() && index < MaxTagConut; index++) {
             tempEntry = entryIterator.next();
-
             finalTag.add(tempEntry.getKey());
 
             int value1 = 0;

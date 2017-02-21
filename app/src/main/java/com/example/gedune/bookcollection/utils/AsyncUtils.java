@@ -43,7 +43,6 @@ public class AsyncUtils {
         return sMultiExecutor;
     }
 
-
     public static void runOnSingleExecutor(Runnable runnable) {
         if (runnable != null) {
             getSingleExecutor().execute(runnable);

@@ -1,7 +1,5 @@
 package com.example.gedune.bookcollection.utils;
 
-import android.util.Log;
-
 import com.example.gedune.bookcollection.Bean.BookBean;
 import com.example.gedune.bookcollection.Bean.BookDetail;
 import com.example.gedune.bookcollection.Bean.TagsBean;
@@ -18,7 +16,6 @@ public class BookDetailGenarator {
         if (detail != null) {
             if (bookBean.getAuthor() != null){
                 detail.setAuthors(bookBean.getAuthor().toString());
-                Log.e("fuck",bookBean.getAuthor().toString());
             }else {
                 detail.setAuthors("");
             }
@@ -83,11 +80,11 @@ public class BookDetailGenarator {
 
             //取第一个，第一个人数最多
             TagsBean tags;
-            if ( bookBean.getTags() != null){
+            if ( bookBean.getTags().isEmpty()){
+                detail.setTag("");
+            }else {
                 tags = bookBean.getTags().get(0);
                 detail.setTag(tags.getTitle());
-            }else {
-                detail.setTag("");
             }
 
         }

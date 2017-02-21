@@ -81,7 +81,6 @@ public abstract class BaseRequest<T> {
         switch (getHttpMethod()) {
             case HttpMethod.GET:
                 builder.url(getUrl());
-                Log.e("fuck","getUrl:" + getUrl());
                 break;
             case HttpMethod.POST:
                 body = RequestBody.create(getMediaType(),strRequest);
@@ -105,6 +104,7 @@ public abstract class BaseRequest<T> {
     public Object execute() throws IOException {
         Response response = this.mClient.newCall(buildRequest()).execute();
         int code = response.code();
+
         if (code == 200) {
             //正常请求
             ResponseBody body = response.body();
@@ -127,10 +127,8 @@ public abstract class BaseRequest<T> {
         httpResponse.code = json.getInteger("code");
         httpResponse.message = json.getString("message");
         String strData = json.getString("data");
-        Log.e("fuck","strData: "  + strData.toString());
 
         Object data = JSONObject.parseObject(strData, getModelClass());
-        Log.e("fuck","data: "  + data.toString());
         httpResponse.data = (T) data;
         return httpResponse;
     }
@@ -152,7 +150,6 @@ public abstract class BaseRequest<T> {
     public boolean enqueue(final HttpCallback<T> callback) {
         if (mCall == null) {
             mCall = mClient.newCall(buildRequest());
-            Log.e("fuck"," mCall " + mCall);
             mCall.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -183,30 +180,24 @@ public abstract class BaseRequest<T> {
         return true;
     }
 
-    public boolean enqueue(final HttpCallback<T> callback,Boolean isJson) {
+    public boolean enqueue(final MyHttpCallback callback,Boolean isJson) {
         if (!isJson){
-            return enqueue(callback);
+            return false;
         }
-
         if (mCall == null) {
             mCall = mClient.newCall(buildRequest());
             mCall.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-
+                    callback.onFailure(call, e);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    Log.e("fuck",response.message());
-                    if (response.code() == 200){
-                        BookBean bookBean = (BookBean) parseResponse(response.body());
-                        callback.onResponse(BaseRequest.this,bookBean);
-                    }else {
-                        callback.onResponse(BaseRequest.this,"fuck");
-                    }
-
+                    BookBean bookBean = (BookBean) parseResponse(response.body());
+                    callback.onResponse(call, bookBean);
                 }
+
             });
         } else {
             if (mCall.isCanceled() || mCall.isExecuted()) {

@@ -27,13 +27,13 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder   {
     @BindView(R.id.book_des)
     TextView mBookdes;
 
+
     public CollectionViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
 
     public void fillData(BookDetail bookDetail){
-
         mBookName.setText(bookDetail.getTitle());
         mBookdes.setText(bookDetail.getAuthors());
         ImageUtils.setUrl(mBookImg,bookDetail.getImage());

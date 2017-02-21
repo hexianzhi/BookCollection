@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.gedune.bookcollection.R;
 
@@ -53,6 +54,10 @@ public class SimpleDialog extends AlertDialog {
             final SimpleDialog simpleDialog = new SimpleDialog(context);
             View layout = inflater.inflate(R.layout.layout_simple_dialog,null);
             simpleDialog.setView(layout);
+
+            if (message !=null){
+                ((TextView) layout.findViewById(R.id.dialog_tip)).setText(message);
+            }
 
             if(confimText!=null){
                 ((Button) layout.findViewById(R.id.dialog_confirm)).setText(confimText);

@@ -1,9 +1,12 @@
 package com.example.gedune.bookcollection.utils;
 
+import android.content.Context;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.StringRes;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 import com.example.gedune.bookcollection.AppProfile;
 
@@ -34,6 +37,12 @@ public class ResourceHelper {
         return AppProfile.getContext().getResources().getDimension(dimenId);
     }
 
+    public static int getDisplayWidth() {
+        DisplayMetrics metric = new DisplayMetrics();
+        WindowManager wm = (WindowManager) AppProfile.getContext().getSystemService(Context.WINDOW_SERVICE);
+        int width = wm.getDefaultDisplay().getWidth();
+        return width;
+    }
 
 
 }

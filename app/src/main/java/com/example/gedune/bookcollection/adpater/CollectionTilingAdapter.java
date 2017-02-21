@@ -9,16 +9,14 @@ import android.view.ViewGroup;
 import com.example.gedune.bookcollection.Bean.BookDetail;
 import com.example.gedune.bookcollection.R;
 import com.example.gedune.bookcollection.orm.OrmHelper;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 
 import java.util.List;
 
 /**
  * Created by gedune on 2017/2/1.
  */
-
-public class CollectionTilingAdapter extends SwipeMenuAdapter<CollectionViewHolder>  {
-    private  Context mContext;
+public class CollectionTilingAdapter extends RecyclerView.Adapter<CollectionViewHolder> {
+    private Context mContext;
     private List<BookDetail> books;
     private OrmHelper helper;
 
@@ -33,16 +31,10 @@ public class CollectionTilingAdapter extends SwipeMenuAdapter<CollectionViewHold
     }
 
     @Override
-    public View onCreateContentView(ViewGroup parent, int viewType) {
+    public CollectionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_collection_tile_item, parent, false);
-        return view;
+        return new CollectionViewHolder(view);
     }
-
-    @Override
-    public CollectionViewHolder onCompatCreateViewHolder(View realContentView, int viewType) {
-        return new CollectionViewHolder(realContentView);
-    }
-
 
     @Override
     public void onBindViewHolder(final CollectionViewHolder holder, final int position) {
@@ -57,7 +49,6 @@ public class CollectionTilingAdapter extends SwipeMenuAdapter<CollectionViewHold
                 }
             });
         }
-
     }
 
     @Override

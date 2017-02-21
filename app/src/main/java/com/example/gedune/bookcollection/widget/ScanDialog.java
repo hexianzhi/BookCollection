@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.gedune.bookcollection.R;
 
@@ -50,6 +51,10 @@ public class ScanDialog extends AlertDialog {
             final ScanDialog scanDialog = new ScanDialog(context);
             View layout = inflater.inflate(R.layout.layout_scan_dialog,null);
             scanDialog.setView(layout);
+
+            if (message !=null){
+                ((TextView) layout.findViewById(R.id.dialog_tip)).setText(message);
+            }
 
             if(confimText!=null){
                 ((Button) layout.findViewById(R.id.scan_dialog_comfirm)).setText(confimText);
