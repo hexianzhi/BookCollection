@@ -9,13 +9,24 @@ import com.example.gedune.bookcollection.Bean.TagsBean;
  */
 
 public class BookDetailGenarator {
-
     public static BookDetail BookBeanToDetail(BookBean bookBean){
         BookDetail detail = new BookDetail();
 
-        if (detail != null) {
+        if (bookBean != null ) {
             if (bookBean.getAuthor() != null){
-                detail.setAuthors(bookBean.getAuthor().toString());
+                //去掉 []
+                String author = bookBean.getAuthor().toString();
+                int length = author.length();
+                StringBuilder builder = new StringBuilder();
+                for (int index = 0; index < length ; index ++){
+
+                    if (index != 0 && index != length -1 ){
+                        builder.append(author.charAt(index));
+                    }
+                }
+
+                detail.setAuthors(builder.toString());
+
             }else {
                 detail.setAuthors("");
             }
@@ -80,7 +91,7 @@ public class BookDetailGenarator {
 
             //取第一个，第一个人数最多
             TagsBean tags;
-            if ( bookBean.getTags().isEmpty()){
+            if (bookBean.getTags() == null ){
                 detail.setTag("");
             }else {
                 tags = bookBean.getTags().get(0);

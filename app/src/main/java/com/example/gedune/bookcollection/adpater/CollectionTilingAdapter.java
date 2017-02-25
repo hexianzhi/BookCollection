@@ -48,6 +48,13 @@ public class CollectionTilingAdapter extends RecyclerView.Adapter<CollectionView
                     return false;
                 }
             });
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemClickListener.onClick(holder,position);
+                }
+
+            });
         }
     }
 
@@ -84,6 +91,7 @@ public class CollectionTilingAdapter extends RecyclerView.Adapter<CollectionView
 
     public interface mOnItemClickListener{
         void onLongClick(RecyclerView.ViewHolder holder, int position);
+        void onClick(RecyclerView.ViewHolder holder, int position);
     }
 
     private mOnItemClickListener itemClickListener;

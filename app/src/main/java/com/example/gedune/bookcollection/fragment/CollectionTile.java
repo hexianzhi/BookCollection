@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.gedune.bookcollection.Bean.BookDetail;
 import com.example.gedune.bookcollection.R;
+import com.example.gedune.bookcollection.activity.BookDetailActivity;
 import com.example.gedune.bookcollection.adpater.CollectionTilingAdapter;
 import com.example.gedune.bookcollection.orm.OrmHelper;
 import com.example.gedune.bookcollection.widget.SimpleDialog;
@@ -36,6 +39,9 @@ public class CollectionTile extends Fragment{
 
     @BindView(R.id.fragment_list_swReView)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.noDataHintTv)
+    TextView noDataTv;
 
     private CollectionTilingAdapter tileAdpater;
     private View rootView;
@@ -65,42 +71,50 @@ public class CollectionTile extends Fragment{
 
         helper = OrmHelper.getInstance(mActivity);
         books = helper.queryBooks();
-
         if (books != null){
+            noDataTv.setVisibility(View.GONE);
             tileAdpater = new CollectionTilingAdapter(mActivity,books);
+            tileAdpater.setItemClickListener(new CollectionTilingAdapter.mOnItemClickListener() {
+                @Override
+                public void onLongClick(RecyclerView.ViewHolder holder, final int position) {
+
+                    SimpleDialog.Builder builder = new SimpleDialog.Builder(mActivity);
+                    builder.setCancelButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).setconfirmButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            tileAdpater.removeItem(position);
+                            tileAdpater.notifyItemRemoved(position);
+                            dialog.dismiss();
+
+                        }
+                    });
+                    builder.create().show();
+                }
+
+                @Override
+                public void onClick(RecyclerView.ViewHolder holder, int position) {
+                    BookDetail bookDetail = tileAdpater.getItem(position);
+                    Intent i = new Intent(mActivity, BookDetailActivity.class);
+                    i.putExtra(BookDetailActivity.sBOOK, bookDetail);
+                    startActivity(i);
+                }
+            });
+
+            gridLayoutManager = new GridLayoutManager(mActivity,3,GridLayoutManager.VERTICAL,false);
+
+            mRecyclerView.setAdapter(tileAdpater);
+            mRecyclerView.setLayoutManager(gridLayoutManager);
 
         }else {
             tileAdpater = new CollectionTilingAdapter(mActivity);
         }
 
-        tileAdpater.setItemClickListener(new CollectionTilingAdapter.mOnItemClickListener() {
-            @Override
-            public void onLongClick(RecyclerView.ViewHolder holder, final int position) {
 
-                SimpleDialog.Builder builder = new SimpleDialog.Builder(mActivity);
-                builder.setCancelButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).setconfirmButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        tileAdpater.removeItem(position);
-                        tileAdpater.notifyItemRemoved(position);
-                        dialog.dismiss();
-
-                    }
-                });
-                builder.create().show();
-            }
-        });
-
-        gridLayoutManager = new GridLayoutManager(mActivity,3,GridLayoutManager.VERTICAL,false);
-
-        mRecyclerView.setAdapter(tileAdpater);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
     }
 
 

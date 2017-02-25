@@ -3,6 +3,7 @@ package com.example.gedune.bookcollection.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.gedune.bookcollection.Bean.BookDetail;
 import com.example.gedune.bookcollection.R;
+import com.example.gedune.bookcollection.activity.BookDetailActivity;
 import com.example.gedune.bookcollection.adpater.CollectionListAdapter;
 import com.example.gedune.bookcollection.orm.OrmHelper;
 
@@ -126,7 +128,11 @@ public class CollectionList extends Fragment implements CollectionListAdapter.Io
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(mActivity, "单击" + position, Toast.LENGTH_SHORT).show();
+        BookDetail bookDetail = listAdapter.getItem(position);
+        Intent i = new Intent(mActivity, BookDetailActivity.class);
+        i.putExtra(BookDetailActivity.sBOOK, bookDetail);
+        startActivity(i);
+
     }
 
     @Override

@@ -29,6 +29,7 @@ public class OrmHelper {
         }
         return instance;
     }
+
     public OrmHelper(Context context){
         MySqlOpenHelper openHelper = new MySqlOpenHelper(context,"ORMDB");
         daoMaster = new DaoMaster(openHelper.getWritableDatabase());
@@ -51,7 +52,6 @@ public class OrmHelper {
     }
 
     public List<BookDetail> queryBooks(){
-
         BookDetailDao bookDao =  daoSession.getBookDetailDao();
         Query<BookDetail> query =  bookDao.queryBuilder().orderAsc(BookDetailDao.Properties.Isbn13).build();
 
@@ -120,12 +120,15 @@ public class OrmHelper {
             BookDetail bookDetail = bookDetails.get(i);
             String s= bookDetail.getPrice();
             String[] part = new String[0];
+
             if (s.contains("元")){
                  part = s.split("元");
                 priceCount += Float.valueOf(part[0]);
             } else if (s.contains("CNY")) {
                  part = s.split("CNY");
                 priceCount += Float.valueOf(part[1]);
+            }else {
+                priceCount += Float.valueOf(s);
             }
         }
         return (int )priceCount;

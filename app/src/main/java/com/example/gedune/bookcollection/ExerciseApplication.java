@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Process;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import java.util.List;
@@ -23,15 +24,24 @@ public class ExerciseApplication extends Application {
 
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+
         if (!shouldInit()) {
             return;
         }
+
         AppProfile.init(this);
         ZXingLibrary.initDisplayOpinion(this);
     }
 
 
     private boolean shouldInit() {
+
         ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
         List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
         String mainProcessName = getPackageName();

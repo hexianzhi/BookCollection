@@ -23,7 +23,6 @@ import java.io.File;
  * Created by zyl06 on 9/4/16.
  */
 public class ImageUtils {
-
     private static MemoryCache sMemoryCache = null;
     private static GlideCircleTransform sCircleTransform = null;
     private static SparseArray<GlideRoundTransform> sRoundTransforms = new SparseArray<>();
@@ -38,7 +37,6 @@ public class ImageUtils {
                 }
             }
         }
-
         return sMemoryCache;
     }
 

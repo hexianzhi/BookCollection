@@ -8,7 +8,7 @@ public interface ResponseCode {
     public static final int sSUCCESS = 200;
     public static final int FAILED = 2;
     //其他内部错误
-    public static final int ERROR = -1;
+    public static final int ERROR = 404;
     public static final int NET_ERROR = -200;
     /***
      * json格式错误

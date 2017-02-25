@@ -184,6 +184,7 @@ public abstract class BaseRequest<T> {
         if (!isJson){
             return false;
         }
+
         if (mCall == null) {
             mCall = mClient.newCall(buildRequest());
             mCall.enqueue(new Callback() {
@@ -194,8 +195,17 @@ public abstract class BaseRequest<T> {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    BookBean bookBean = (BookBean) parseResponse(response.body());
-                    callback.onResponse(call, bookBean);
+                    if (response.code() == ResponseCode.sSUCCESS){
+                        try {
+                            BookBean bookBean = (BookBean) parseResponse(response.body());
+                            callback.onResponse(call, bookBean);
+                        }catch (IOException e){
+                            callback.onFailure(call,e);
+                        }
+                    }else {
+                        callback.onResponse(call,null);
+                    }
+
                 }
 
             });

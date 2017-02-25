@@ -13,8 +13,7 @@ import android.widget.ImageButton;
 import com.example.gedune.bookcollection.Bean.BookBean;
 import com.example.gedune.bookcollection.Bean.BookDetail;
 import com.example.gedune.bookcollection.R;
-import com.example.gedune.bookcollection.module.BookDetailTask;
-import com.example.gedune.bookcollection.net.MyHttpCallback;
+import com.example.gedune.bookcollection.module.BookDetailAction;
 import com.example.gedune.bookcollection.orm.OrmHelper;
 import com.example.gedune.bookcollection.utils.BookDetailGenarator;
 import com.example.gedune.bookcollection.widget.ScanDialog;
@@ -23,9 +22,8 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.Call;
 
-public class ScanActivtity extends AppCompatActivity implements View.OnClickListener {
+public class ScanActivtity extends AppCompatActivity implements View.OnClickListener,BookDetailAction.IGetBookCB {
     private CaptureFragment captureFragment;
     private OrmHelper helper;
     private final static int sDIALOG_NO_NETWORK = 1;
@@ -77,27 +75,7 @@ public class ScanActivtity extends AppCompatActivity implements View.OnClickList
             bundle.putString(CodeUtils.RESULT_STRING, result);
             resultIntent.putExtras(bundle);
 
-            //没有收藏该书
-            final BookDetailTask task = new BookDetailTask(result);
-            task.enqueue(new MyHttpCallback() {
-                @Override
-                public void onResponse(Call call, Object data) {
-                    if (data != null) {
-                        BookDetail detail = BookDetailGenarator.BookBeanToDetail((BookBean) data);
-                        Intent i = new Intent(ScanActivtity.this, BookDetailActivity.class);
-                        i.putExtra(BookDetailActivity.sBOOK, detail);
-                        startActivity(i);
-                    }else {
-                        showMyDialog(sDIALOG_NO_NETWORK);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call call, Exception e) {
-                    showMyDialog(sDIALOG_NO_NETWORK);
-                }
-            },true);
-
+            BookDetailAction.getBookkDetail(result,ScanActivtity.this);
         }
 
         @Override
@@ -174,5 +152,23 @@ public class ScanActivtity extends AppCompatActivity implements View.OnClickList
 
                 break;
         }
+    }
+
+    @Override
+    public void onConnectSuccess(Object data) {
+        if (data != null ) {
+            BookDetail detail = BookDetailGenarator.BookBeanToDetail((BookBean) data);
+            Intent i = new Intent(ScanActivtity.this, BookDetailActivity.class);
+            i.putExtra(BookDetailActivity.sBOOK, detail);
+            startActivity(i);
+        }else {
+            showMyDialog(sDIALOG_ANALYSE_FAILDED);
+        }
+
+    }
+
+    @Override
+    public void onConnectFailed(Exception e) {
+        showMyDialog(sDIALOG_NO_NETWORK);
     }
 }

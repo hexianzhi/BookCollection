@@ -17,7 +17,7 @@ public interface MyHttpCallback<T> {
 
 
     /**
-     * @param e       异常：网络异常，json解析异常
+     * @param e
      */
     public void onFailure(Call call , Exception e);
 
